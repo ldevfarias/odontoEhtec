@@ -1,4 +1,7 @@
-import type { Decimal } from '@prisma/client/runtime/library';
+export interface Decimal {
+  toString(): string;
+  toNumber(): number;
+}
 
 export class Plan {
   constructor(
