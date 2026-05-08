@@ -69,7 +69,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build shared package
-        run: pnpm --filter @odontoehtec/shared build || true
+        run: pnpm --filter @odontoehtec/shared build
 
       - name: Run type check
         run: pnpm type-check
