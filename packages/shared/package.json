@@ -9,6 +9,12 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "lint": "eslint \"src/**/*.ts\""
+    "lint": "eslint \"src/**/*.ts\"",
+    "test": "vitest run",
+    "test:cov": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.5"
   }
 }
