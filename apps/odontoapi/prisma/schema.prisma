@@ -6,27 +6,85 @@ datasource db {
   provider = "postgresql"
 }
 
-model Clinic {
-  id        String    @id @default(cuid())
+model Subscriber {
+  id        String   @id @default(cuid())
   name      String
-  cnpj      String    @unique
+  email     String   @unique
+  document  String   @unique
   phone     String?
-  email     String?
-  address   String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  patients  Patient[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  clinics Clinic[]
+
+  @@map("subscribers")
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  price       Decimal  @db.Decimal(10, 2)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("plans")
+}
+
+model Clinic {
+  id           String   @id @default(cuid())
+  name         String
+  cnpj         String   @unique
+  phone        String?
+  email        String?
+  address      String?
+  subscriberId String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  subscriber    Subscriber     @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+  professionals Professional[]
+  patients      Patient[]
+
+  @@map("clinics")
+}
+
+model Professional {
+  id        String           @id @default(cuid())
+  name      String
+  email     String           @unique
+  cpf       String           @unique
+  phone     String?
+  role      ProfessionalRole @default(DENTIST)
+  clinicId  String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  clinic Clinic @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+
+  @@map("professionals")
+}
+
+enum ProfessionalRole {
+  DENTIST
+  RECEPTIONIST
+  ADMIN
 }
 
 model Patient {
   id        String    @id @default(cuid())
   name      String
-  cpf       String    @unique
+  cpf       String
   birthDate DateTime?
   phone     String?
   email     String?
   clinicId  String
-  clinic    Clinic    @relation(fields: [clinicId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  clinic Clinic @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+
+  @@unique([cpf, clinicId])
+  @@map("patients")
 }
