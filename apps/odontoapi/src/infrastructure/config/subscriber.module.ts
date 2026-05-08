@@ -23,5 +23,6 @@ import { SubscriberController } from '../adapters/in/subscriber/subscriber.contr
     { provide: DELETE_SUBSCRIBER_USE_CASE, useClass: DeleteSubscriberUseCase },
   ],
   controllers: [SubscriberController],
+  exports: [SUBSCRIBER_REPOSITORY],
 })
 export class SubscriberModule {}
