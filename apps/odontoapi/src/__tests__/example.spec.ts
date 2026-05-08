@@ -10,7 +10,7 @@ interface IExampleRepository {
 class GetExampleUseCase {
   constructor(private readonly repo: IExampleRepository) {}
 
-  async execute(id: string) {
+  async execute(id: string): Promise<{ id: string; name: string }> {
     const result = await this.repo.findById(id);
     if (!result) throw new Error('Not found');
     return result;

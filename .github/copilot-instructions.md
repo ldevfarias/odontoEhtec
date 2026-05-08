@@ -1,6 +1,7 @@
 # OdontoEhTec — Copilot Instructions
 
 ## Projeto
+
 SaaS odontológico para gestão completa de clínicas e pacientes. Facilita o dia a dia
 do dentista com agendamento, prontuário eletrônico, faturamento e relatórios clínicos.
 
@@ -33,6 +34,7 @@ infrastructure/config/        → Módulos NestJS e configurações
 ```
 
 **Regras invioláveis:**
+
 - `domain/` nunca importa de `application/` ou `infrastructure/`
 - `application/` nunca importa de `infrastructure/`
 - Injeção de dependência via interfaces (Output Ports), nunca via implementações diretas
@@ -40,6 +42,7 @@ infrastructure/config/        → Módulos NestJS e configurações
 - Entidades de domínio não utilizam decorators de framework (`@Injectable`, `@Column`, etc.)
 
 ## Convenções de Código
+
 - TypeScript `strict: true` — `any` exige justificativa via comentário eslint-disable
 - Retorno tipado explicitamente em todas as funções públicas da API
 - Nomenclatura: `PascalCase` (classes/interfaces) | `camelCase` (funções/vars) | `kebab-case` (arquivos)
@@ -50,16 +53,17 @@ infrastructure/config/        → Módulos NestJS e configurações
 
 ## Stack
 
-| Camada           | Tecnologia                              |
-| ---------------- | --------------------------------------- |
-| Landing page     | Next.js 15, React 19, TypeScript        |
-| Painel dentista  | Next.js 15, React 19, TypeScript        |
-| API REST         | NestJS 11, TypeScript, class-validator  |
-| Banco de dados   | PostgreSQL + Prisma 6                   |
-| Tipos shared     | @odontoehtec/shared                     |
-| Qualidade        | ESLint + SonarJS + Prettier + Husky     |
+| Camada          | Tecnologia                             |
+| --------------- | -------------------------------------- |
+| Landing page    | Next.js 15, React 19, TypeScript       |
+| Painel dentista | Next.js 15, React 19, TypeScript       |
+| API REST        | NestJS 11, TypeScript, class-validator |
+| Banco de dados  | PostgreSQL + Prisma 6                  |
+| Tipos shared    | @odontoehtec/shared                    |
+| Qualidade       | ESLint + SonarJS + Prettier + Husky    |
 
 ## Quality Gates
+
 - **Pre-commit**: Husky + lint-staged — ESLint e Prettier em arquivos staged
 - **Complexidade cognitiva**: máximo 15 (warn) — refatorar funções complexas
 - **Funções duplicadas idênticas**: `error` — bloqueia commit
@@ -69,15 +73,18 @@ infrastructure/config/        → Módulos NestJS e configurações
 - Rodar `pnpm lint` antes de abrir PR — CI rejeita PRs com erros de lint
 
 ## Processo de Desenvolvimento
+
 - Adotar abordagem **spec-driven** para implementação de cada feature
 - Antes de codar, definir escopo, requisitos, critérios de aceite e impactos técnicos
 - Cada feature deve ter um plano próprio dentro de `docs/`
 - Padrão sugerido: `docs/<nome-da-feature>.md`
 
 ## Padrões de Commit
+
 Conventional Commits: `feat:` | `fix:` | `refactor:` | `docs:` | `test:` | `chore:`
 
 ## Variáveis de Ambiente
+
 - `apps/odontoapi`: `DATABASE_URL` (PostgreSQL connection string), `PORT` (padrão 3333)
 - `apps/odontoapp`: `NEXT_PUBLIC_API_URL` (URL da REST API)
 - Nunca commitar `.env` — criar `.env.example` como referência sem valores reais
