@@ -13,7 +13,7 @@ import {
 export class CreateSubscriberUseCase implements ICreateSubscriberUseCase {
   constructor(
     @Inject(SUBSCRIBER_REPOSITORY)
-    private readonly subscriberRepository: ISubscriberRepository,
+    private readonly subscriberRepository: ISubscriberRepository
   ) {}
 
   async execute(input: CreateSubscriberInput): Promise<CreateSubscriberOutput> {

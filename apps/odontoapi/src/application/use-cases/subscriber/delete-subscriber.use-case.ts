@@ -12,7 +12,7 @@ import {
 export class DeleteSubscriberUseCase implements IDeleteSubscriberUseCase {
   constructor(
     @Inject(SUBSCRIBER_REPOSITORY)
-    private readonly subscriberRepository: ISubscriberRepository,
+    private readonly subscriberRepository: ISubscriberRepository
   ) {}
 
   async execute(input: DeleteSubscriberInput): Promise<void> {

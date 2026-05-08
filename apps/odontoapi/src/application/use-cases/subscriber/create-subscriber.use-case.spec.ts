@@ -73,7 +73,7 @@ describe('CreateSubscriberUseCase', () => {
     });
 
     expect(repository.create).toHaveBeenCalledWith(
-      expect.objectContaining({ email: 'contato@clinica.com' }),
+      expect.objectContaining({ email: 'contato@clinica.com' })
     );
   });
 
@@ -90,7 +90,7 @@ describe('CreateSubscriberUseCase', () => {
     });
 
     await expect(
-      useCase.execute({ name: 'Nova', email: 'contato@clinica.com', document: '22333444000192' }),
+      useCase.execute({ name: 'Nova', email: 'contato@clinica.com', document: '22333444000192' })
     ).rejects.toThrow(ConflictException);
     expect(repository.create).not.toHaveBeenCalled();
   });
@@ -109,7 +109,7 @@ describe('CreateSubscriberUseCase', () => {
     });
 
     await expect(
-      useCase.execute({ name: 'Nova', email: 'nova@clinica.com', document: '11222333000181' }),
+      useCase.execute({ name: 'Nova', email: 'nova@clinica.com', document: '11222333000181' })
     ).rejects.toThrow(ConflictException);
     expect(repository.create).not.toHaveBeenCalled();
   });

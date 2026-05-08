@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "nest start --watch",
-    "build": "nest build",
+    "build": "pnpm prisma:generate && nest build",
     "start": "node dist/main",
     "lint": "eslint \"src/**/*.ts\" --fix",
-    "type-check": "tsc --noEmit --project tsconfig.typecheck.json",
+    "type-check": "pnpm prisma:generate && tsc --noEmit --project tsconfig.typecheck.json",
+    "prisma:generate": "prisma generate --schema prisma/schema.prisma",
     "test": "jest",
     "test:cov": "jest --coverage",
     "test:watch": "jest --watch"
