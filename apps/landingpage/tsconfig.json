@@ -4,35 +4,20 @@
     "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "ES2022"
-    ],
+    "lib": ["dom", "dom.iterable", "ES2022"],
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@odontoehtec/shared": [
-        "../../packages/shared/src/index.ts"
-      ]
+      "@/*": ["./src/*"],
+      "@odontoehtec/shared": ["../../packages/shared/src/index.ts"]
     },
     "allowJs": true,
     "noEmit": true,
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
