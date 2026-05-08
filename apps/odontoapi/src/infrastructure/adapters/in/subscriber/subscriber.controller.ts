@@ -11,6 +11,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import type { ApiResponse } from '@odontoehtec/shared';
 import type { CreateSubscriberDto } from './create-subscriber.dto';
 import type { UpdateSubscriberDto } from './update-subscriber.dto';
@@ -40,6 +41,7 @@ import {
 } from '../../../../domain/ports/in/subscriber/delete-subscriber.use-case';
 
 @Controller('subscribers')
+@ApiTags('Subscribers')
 export class SubscriberController {
   constructor(
     @Inject(CREATE_SUBSCRIBER_USE_CASE)

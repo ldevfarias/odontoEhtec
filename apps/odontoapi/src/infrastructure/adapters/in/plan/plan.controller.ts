@@ -11,6 +11,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import type { ApiResponse } from '@odontoehtec/shared';
 import type { CreatePlanDto } from './create-plan.dto';
 import type { UpdatePlanDto } from './update-plan.dto';
@@ -40,6 +41,7 @@ import {
 } from '../../../../domain/ports/in/plan/delete-plan.use-case';
 
 @Controller('plans')
+@ApiTags('Plans')
 export class PlanController {
   constructor(
     @Inject(CREATE_PLAN_USE_CASE)

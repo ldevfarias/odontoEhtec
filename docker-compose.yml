@@ -1,0 +1,22 @@
+services:
+  odonto-postgres:
+    image: postgres:16-alpine
+    container_name: odonto-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: odontoehtec
+      POSTGRES_USER: odontoehtec
+      POSTGRES_PASSWORD: odontoehtec
+    ports:
+      - '5432:5432'
+    volumes:
+      - odonto_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U odontoehtec -d odontoehtec']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  odonto_postgres_data:

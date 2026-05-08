@@ -11,6 +11,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import type { ApiResponse } from '@odontoehtec/shared';
 import type { CreateProfessionalDto } from './create-professional.dto';
 import type { UpdateProfessionalDto } from './update-professional.dto';
@@ -40,6 +41,7 @@ import {
 } from '../../../../domain/ports/in/professional/delete-professional.use-case';
 
 @Controller('professionals')
+@ApiTags('Professionals')
 export class ProfessionalController {
   constructor(
     @Inject(CREATE_PROFESSIONAL_USE_CASE)

@@ -6,6 +6,7 @@ import { PatientModule } from './infrastructure/config/patient.module';
 import { ProfessionalModule } from './infrastructure/config/professional.module';
 import { PlanModule } from './infrastructure/config/plan.module';
 import { SubscriptionModule } from './infrastructure/config/subscription.module';
+import { HealthModule } from './infrastructure/config/health.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { SubscriptionModule } from './infrastructure/config/subscription.module'
     ProfessionalModule,
     PlanModule,
     SubscriptionModule,
+    HealthModule,
   ],
 })
 export class AppModule {}
