@@ -15,7 +15,8 @@ model Subscriber {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  clinics Clinic[]
+  clinics       Clinic[]
+  subscriptions Subscription[]
 
   @@map("subscribers")
 }
@@ -28,6 +29,8 @@ model Plan {
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  subscriptions Subscription[]
 
   @@map("plans")
 }
@@ -47,6 +50,7 @@ model Clinic {
   professionals Professional[]
   patients      Patient[]
 
+  @@index([subscriberId])
   @@map("clinics")
 }
 
@@ -63,6 +67,7 @@ model Professional {
 
   clinic Clinic @relation(fields: [clinicId], references: [id], onDelete: Cascade)
 
+  @@index([clinicId])
   @@map("professionals")
 }
 
@@ -70,6 +75,13 @@ enum ProfessionalRole {
   DENTIST
   RECEPTIONIST
   ADMIN
+}
+
+enum SubscriptionStatus {
+  TRIAL
+  ACTIVE
+  INACTIVE
+  CANCELLED
 }
 
 model Patient {
@@ -86,5 +98,22 @@ model Patient {
   clinic Clinic @relation(fields: [clinicId], references: [id], onDelete: Cascade)
 
   @@unique([cpf, clinicId])
+  @@index([clinicId])
   @@map("patients")
+}
+
+model Subscription {
+  id           String               @id @default(cuid())
+  subscriberId String
+  planId       String
+  status       SubscriptionStatus   @default(TRIAL)
+  startDate    DateTime
+  endDate      DateTime?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+
+  subscriber Subscriber @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+  plan       Plan       @relation(fields: [planId], references: [id])
+
+  @@map("subscriptions")
 }
