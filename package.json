@@ -9,6 +9,7 @@
     "type-check": "turbo type-check",
     "test": "turbo test",
     "test:cov": "turbo test:cov",
+    "coverage:check": "turbo test:cov",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "prepare": "husky || true"

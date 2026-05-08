@@ -2,11 +2,7 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "sonarjs"],
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
   "env": {
     "es2022": true,
     "node": true
@@ -28,6 +24,7 @@
     "sonarjs/no-ignored-return": "warn",
     "sonarjs/prefer-immediate-return": "warn",
     "sonarjs/no-redundant-boolean": "warn",
+    "max-lines": ["error", { "max": 300, "skipBlankLines": true, "skipComments": true }],
     "no-console": "warn",
     "prefer-const": "error",
     "eqeqeq": ["error", "always"],

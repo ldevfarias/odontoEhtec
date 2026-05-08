@@ -9,6 +9,9 @@ const config: Config = {
   },
   collectCoverageFrom: ['**/*.ts', '!**/*.module.ts', '!main.ts'],
   coverageDirectory: '../coverage',
+  coverageThresholds: {
+    global: { lines: 80, functions: 80, branches: 70, statements: 80 },
+  },
   testEnvironment: 'node',
   moduleNameMapper: {
     '^@odontoehtec/shared$': '<rootDir>/../../packages/shared/src/index.ts',

@@ -6,7 +6,7 @@ SaaS odontológico para gestão de clínicas e pacientes: agendamento, prontuár
 
 ## Monorepo
 
-```
+```text
 apps/landingpage  → Next.js 15 (App Router) — site público
 apps/odontoapp   → Next.js 15 (App Router) — painel do dentista
 apps/odontoapi   → NestJS 11 — REST API
@@ -20,7 +20,7 @@ Comandos raiz: `pnpm dev` | `pnpm build` | `pnpm lint` | `pnpm type-check`
 
 Dependências sempre apontam para dentro: `infrastructure → application → domain`.
 
-```
+```text
 domain/entities/             → Classes puras, sem decorators de framework
 domain/ports/in/             → Interfaces Input Port (contratos de casos de uso)
 domain/ports/out/            → Interfaces Output Port (contratos de repositórios)
@@ -75,11 +75,18 @@ infrastructure/config/       → @Modules NestJS
 ## Quality Gates
 
 - **Pre-commit**: Husky + lint-staged — ESLint e Prettier nos arquivos staged
+- **Arquivos**: máximo 300 linhas (`max-lines` em `error`) — dividir módulos grandes
 - **Complexidade cognitiva**: máximo 15 — refatorar funções que excedem
-- **Funções duplicadas**: `error` — bloqueia commit
-- **Variáveis não usadas**: `error` — prefixar com `_` para ignorar intencionalmente
+- **Funções duplicadas**: `error` | **Variáveis não usadas**: `error` (prefixar `_` para ignorar)
 - **Prettier**: `printWidth: 100`, `singleQuote: true`, `trailingComma: 'es5'`
 - Rodar `pnpm lint` antes de abrir PR
+
+## CI/CD (GitHub Actions)
+
+Workflow `.github/workflows/ci.yml` em PRs/pushes para `main`/`develop` — 3 jobs paralelos:
+
+- **lint**: ESLint + Prettier check | **type-check**: `pnpm type-check` (após build do shared)
+- **test**: `pnpm test:cov` — falha se cobertura < 80 % lines/functions ou < 70 % branches
 
 ## Processo de Desenvolvimento
 
@@ -89,6 +96,5 @@ infrastructure/config/       → @Modules NestJS
 
 ## Variáveis de Ambiente
 
-- `odontoapi`: `DATABASE_URL` (PostgreSQL), `PORT` (padrão 3333)
-- `odontoapp`: `NEXT_PUBLIC_API_URL` (URL da REST API)
+- `odontoapi`: `DATABASE_URL` (PostgreSQL), `PORT` (padrão 3333) | `odontoapp`: `NEXT_PUBLIC_API_URL`
 - Nunca commitar `.env` — manter `.env.example` como referência sem valores reais
