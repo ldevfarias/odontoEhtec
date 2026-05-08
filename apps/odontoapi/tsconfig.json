@@ -10,9 +10,7 @@
     "rootDir": "src",
     "incremental": true,
     "tsBuildInfoFile": "dist/.tsbuildinfo",
-    "paths": {
-      "@odontoehtec/shared": ["../../packages/shared/src/index.ts"]
-    }
+    "paths": {}
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

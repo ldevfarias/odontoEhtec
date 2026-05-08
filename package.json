@@ -10,6 +10,7 @@
     "test": "turbo test",
     "test:cov": "turbo test:cov",
     "coverage:check": "turbo test:cov",
+    "ci:local": "pnpm lint && pnpm format:check && pnpm type-check && pnpm build && pnpm test",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "prepare": "husky || true"

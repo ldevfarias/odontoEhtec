@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/luka/odontoEhtec/apps/odontoapi/src -type f -name *.ts)",
+      "Bash(npx prisma:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm --filter odontoapi run test)",
+      "Bash(pnpm --filter odontoapi run type-check)"
+    ]
+  }
+}
