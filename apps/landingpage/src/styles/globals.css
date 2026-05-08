@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  /* ============ COLORS ============ */
+  --color-primary-900: #06262b;
+  --color-primary-800: #0a2f36;
+  --color-primary-700: #0e4f4a;
+  --color-primary-600: #14655f;
+  --color-primary-500: #1f8478;
+  --color-primary-300: #7db7ae;
+  --color-primary-100: #d7e8e5;
+
+  --color-canvas: #faf6ee;
+  --color-mist: #ede7da;
+  --color-surface-1: #fffcf5;
+  --color-surface-2: #ffffff;
+  --color-surface-ink: #0a2f36;
+
+  --color-accent-700: #b47d3e;
+  --color-accent-600: #c8914b;
+  --color-accent-500: #d9a86c;
+  --color-accent-300: #eccfa5;
+  --color-accent-100: #f7e9d4;
+
+  --color-ink-1: #1b2a2c;
+  --color-ink-2: #3f5256;
+  --color-ink-3: #6b7c7f;
+  --color-ink-4: #9aa8aa;
+  --color-border-soft: #e6dec9;
+  --color-border-firm: #d2c7ac;
+  --color-divider: #ede7da;
+
+  --color-success-700: #2f6a4f;
+  --color-success-500: #4a8e6e;
+  --color-success-100: #ddeae0;
+
+  --color-warning-700: #946420;
+  --color-warning-500: #c68a2e;
+  --color-warning-100: #f4e4c0;
+
+  --color-danger-700: #9a3b2e;
+  --color-danger-500: #c25e4d;
+  --color-danger-100: #f4d9d2;
+
+  --color-info-700: #2a5a78;
+  --color-info-500: #4685a8;
+  --color-info-100: #d7e5ee;
+
+  --color-fg-on-primary: #fffcf5;
+  --color-fg-on-accent: #1b2a2c;
+
+  /* ============ TYPOGRAPHY ============ */
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ============ SPACING ============ */
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 32px;
+  --spacing-8: 40px;
+  --spacing-9: 48px;
+  --spacing-10: 64px;
+  --spacing-11: 96px;
+  --spacing-12: 128px;
+
+  /* ============ BORDER RADIUS ============ */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 999px;
+
+  /* ============ SHADOWS ============ */
+  --shadow-1: 0 1px 2px rgb(14 79 74 / 0.04), 0 2px 8px rgb(14 79 74 / 0.06);
+  --shadow-2: 0 4px 14px rgb(14 79 74 / 0.08), 0 2px 4px rgb(14 79 74 / 0.04);
+  --shadow-3: 0 10px 30px rgb(10 47 54 / 0.12), 0 4px 8px rgb(10 47 54 / 0.06);
+  --shadow-4: 0 24px 60px rgb(10 47 54 / 0.18), 0 8px 16px rgb(10 47 54 / 0.08);
+
+  /* ============ ANIMATION ============ */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --animate-rise: oet-rise 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade: oet-fade-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes oet-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px) rotateX(2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+@keyframes oet-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============ BASE ============ */
+@layer base {
+  html,
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink-1);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* ============ COMPONENT CLASSES (oet-*) ============ */
+@layer components {
+  .oet-display-xl {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 84px;
+    line-height: 92px;
+    letter-spacing: -0.02em;
+    color: var(--color-ink-1);
+  }
+
+  .oet-display-lg {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 72px;
+    letter-spacing: -0.02em;
+    color: var(--color-ink-1);
+  }
+
+  .oet-display-md {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 56px;
+    letter-spacing: -0.02em;
+    color: var(--color-ink-1);
+  }
+
+  .oet-h1,
+  h1 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    color: var(--color-ink-1);
+  }
+
+  .oet-h2,
+  h2 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.02em;
+    color: var(--color-ink-1);
+  }
+
+  .oet-h3,
+  h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 30px;
+    color: var(--color-ink-1);
+  }
+
+  .oet-h4,
+  h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--color-ink-1);
+  }
+
+  .oet-body-lg {
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--color-ink-2);
+  }
+
+  .oet-body {
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-ink-2);
+  }
+
+  .oet-body-sm {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-ink-2);
+  }
+
+  .oet-caption {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--color-ink-3);
+  }
+
+  .oet-eyebrow {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+    font-weight: 600;
+  }
+
+  .oet-editorial {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-ink-1);
+  }
+
+  .oet-kpi {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-ink-1);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .oet-btn {
+    @apply inline-flex items-center justify-center gap-2 h-12 px-6 rounded-lg font-sans font-semibold text-base leading-none border border-transparent cursor-pointer select-none;
+    transition:
+      transform 120ms cubic-bezier(0.22, 1, 0.36, 1),
+      background 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 2px var(--color-canvas),
+        0 0 0 4px var(--color-primary-500);
+    }
+  }
+
+  .oet-btn--primary {
+    @apply bg-primary-700 text-fg-on-primary;
+    &:hover {
+      @apply bg-primary-600;
+    }
+  }
+
+  .oet-btn--secondary {
+    @apply bg-surface-1 text-ink-1 border-border-firm;
+    &:hover {
+      @apply bg-mist;
+    }
+  }
+
+  .oet-btn--accent {
+    @apply bg-accent-500 text-fg-on-accent;
+    &:hover {
+      @apply bg-accent-600;
+    }
+  }
+
+  .oet-btn--ghost {
+    @apply bg-transparent text-primary-700;
+    &:hover {
+      @apply bg-primary-100;
+    }
+  }
+
+  .oet-card {
+    @apply bg-surface-1 border border-border-soft rounded-xl p-5;
+    box-shadow: var(--shadow-1);
+    transition:
+      transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .oet-card--interactive {
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-2);
+    }
+  }
+
+  .oet-input {
+    @apply w-full h-12 px-4 border border-border-firm rounded-md bg-surface-2 font-sans text-base text-ink-1;
+    transition:
+      border-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1);
+
+    &::placeholder {
+      color: var(--color-ink-4);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary-500);
+      box-shadow:
+        inset 0 1px 0 rgb(14 79 74 / 0.04),
+        0 0 0 3px var(--color-primary-100);
+    }
+  }
+
+  .oet-anim-rise {
+    animation: var(--animate-rise);
+  }
+
+  .oet-anim-fade {
+    animation: var(--animate-fade);
+  }
+}
