@@ -5,7 +5,7 @@ import { FIND_PATIENT_BY_ID_USE_CASE } from '../../domain/ports/in/patient/find-
 import { LIST_PATIENTS_USE_CASE } from '../../domain/ports/in/patient/list-patients.use-case';
 import { UPDATE_PATIENT_USE_CASE } from '../../domain/ports/in/patient/update-patient.use-case';
 import { DELETE_PATIENT_USE_CASE } from '../../domain/ports/in/patient/delete-patient.use-case';
-import { PrismaPatientRepository } from '../adapters/out/prisma-patient.repository';
+import { DrizzlePatientRepository } from '../adapters/out/drizzle-patient.repository';
 import { CreatePatientUseCase } from '../../application/use-cases/patient/create-patient.use-case';
 import { FindPatientByIdUseCase } from '../../application/use-cases/patient/find-patient-by-id.use-case';
 import { ListPatientsUseCase } from '../../application/use-cases/patient/list-patients.use-case';
@@ -17,7 +17,7 @@ import { ClinicModule } from './clinic.module';
 @Module({
   imports: [ClinicModule],
   providers: [
-    { provide: PATIENT_REPOSITORY, useClass: PrismaPatientRepository },
+    { provide: PATIENT_REPOSITORY, useClass: DrizzlePatientRepository },
     { provide: CREATE_PATIENT_USE_CASE, useClass: CreatePatientUseCase },
     { provide: FIND_PATIENT_BY_ID_USE_CASE, useClass: FindPatientByIdUseCase },
     { provide: LIST_PATIENTS_USE_CASE, useClass: ListPatientsUseCase },

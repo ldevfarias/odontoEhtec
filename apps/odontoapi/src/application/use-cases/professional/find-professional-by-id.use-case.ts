@@ -1,8 +1,8 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import type {
-  IFindProfessionalByIdUseCase,
   FindProfessionalByIdInput,
   FindProfessionalByIdOutput,
+  IFindProfessionalByIdUseCase,
 } from '../../../domain/ports/in/professional/find-professional-by-id.use-case';
 import {
   PROFESSIONAL_REPOSITORY,
@@ -26,8 +26,7 @@ export class FindProfessionalByIdUseCase implements IFindProfessionalByIdUseCase
       email: professional.email,
       cpf: professional.cpf,
       phone: professional.phone,
-      role: professional.role,
-      clinicId: professional.clinicId,
+      status: professional.status,
       createdAt: professional.createdAt,
       updatedAt: professional.updatedAt,
     };

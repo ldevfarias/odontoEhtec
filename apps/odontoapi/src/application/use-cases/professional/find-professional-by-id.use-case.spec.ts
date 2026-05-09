@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
-import { FindProfessionalByIdUseCase } from './find-professional-by-id.use-case';
-import type { IProfessionalRepository } from '../../../domain/ports/out/professional.repository';
 import type { Professional } from '../../../domain/entities/professional.entity';
+import type { IProfessionalRepository } from '../../../domain/ports/out/professional.repository';
+import { FindProfessionalByIdUseCase } from './find-professional-by-id.use-case';
 
 const makeProfessionalRepository = (): jest.Mocked<IProfessionalRepository> => ({
   create: jest.fn(),
@@ -11,16 +11,20 @@ const makeProfessionalRepository = (): jest.Mocked<IProfessionalRepository> => (
   findAllByClinic: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
+  upsertForInvite: jest.fn(),
+  getFirstClinicId: jest.fn(),
 });
 
+const PROFESSIONAL_EMAIL = 'joao@clinica.com';
+const PROFESSIONAL_ID = 'professional-1';
+
 const makeProfessional = (overrides: Partial<Professional> = {}): Professional => ({
-  id: 'professional-1',
+  id: PROFESSIONAL_ID,
   name: 'Dr. João',
-  email: 'joao@clinica.com',
+  email: PROFESSIONAL_EMAIL,
   cpf: '12345678901',
   phone: null,
-  role: 'DENTIST',
-  clinicId: 'clinic-1',
+  status: 'ACTIVE',
   createdAt: new Date('2026-01-01'),
   updatedAt: new Date('2026-01-01'),
   ...overrides,
@@ -38,10 +42,10 @@ describe('FindProfessionalByIdUseCase', () => {
   it('retorna profissional quando encontrado', async () => {
     professionalRepository.findById.mockResolvedValue(makeProfessional());
 
-    const result = await useCase.execute({ id: 'professional-1' });
+    const result = await useCase.execute({ id: PROFESSIONAL_ID });
 
-    expect(result.id).toBe('professional-1');
-    expect(result.role).toBe('DENTIST');
+    expect(result.id).toBe(PROFESSIONAL_ID);
+    expect(result.status).toBe('ACTIVE');
   });
 
   it('lança NotFoundException quando profissional não existe', async () => {

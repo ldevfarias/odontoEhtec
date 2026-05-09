@@ -1,11 +1,11 @@
 import { ConflictException, NotFoundException } from '@nestjs/common';
-import { CreateSubscriptionUseCase } from './create-subscription.use-case';
-import type { ISubscriptionRepository } from '../../../domain/ports/out/subscription.repository';
-import type { ISubscriberRepository } from '../../../domain/ports/out/subscriber.repository';
-import type { IPlanRepository } from '../../../domain/ports/out/plan.repository';
-import type { Subscription } from '../../../domain/entities/subscription.entity';
-import type { Subscriber } from '../../../domain/entities/subscriber.entity';
 import type { Plan } from '../../../domain/entities/plan.entity';
+import type { Subscriber } from '../../../domain/entities/subscriber.entity';
+import type { Subscription } from '../../../domain/entities/subscription.entity';
+import type { IPlanRepository } from '../../../domain/ports/out/plan.repository';
+import type { ISubscriberRepository } from '../../../domain/ports/out/subscriber.repository';
+import type { ISubscriptionRepository } from '../../../domain/ports/out/subscription.repository';
+import { CreateSubscriptionUseCase } from './create-subscription.use-case';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const makeDecimal = (value: string): any => ({
@@ -30,6 +30,7 @@ const makeSubscriberRepository = (): jest.Mocked<ISubscriberRepository> => ({
   findAll: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
+  countClinics: jest.fn(),
 });
 
 const makePlanRepository = (): jest.Mocked<IPlanRepository> => ({
@@ -41,37 +42,45 @@ const makePlanRepository = (): jest.Mocked<IPlanRepository> => ({
   delete: jest.fn(),
 });
 
+const PLAN_ID = 'plan-1';
+
+const SUBSCRIPTION_STATUS_TRIAL = 'TRIAL';
+const DATE_2026 = new Date('2026-01-01');
+
 const makeSubscription = (overrides: Partial<Subscription> = {}): Subscription => ({
   id: 'subscription-1',
-  subscriberId: 'subscriber-1',
-  planId: 'plan-1',
-  status: 'TRIAL',
-  startDate: new Date('2026-01-01'),
+  subscriberId: SUBSCRIBER_ID,
+  planId: PLAN_ID,
+  status: SUBSCRIPTION_STATUS_TRIAL,
+  startDate: DATE_2026,
   endDate: null,
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
+  createdAt: DATE_2026,
+  updatedAt: DATE_2026,
   ...overrides,
 });
 
+const SUBSCRIBER_ID = 'subscriber-1';
+const SUBSCRIBER_EMAIL = 'joao@email.com';
+
 const makeSubscriber = (overrides: Partial<Subscriber> = {}): Subscriber => ({
-  id: 'subscriber-1',
+  id: SUBSCRIBER_ID,
   name: 'João',
-  email: 'joao@email.com',
+  email: SUBSCRIBER_EMAIL,
   document: '12345678000',
   phone: null,
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
+  createdAt: DATE_2026,
+  updatedAt: DATE_2026,
   ...overrides,
 });
 
 const makePlan = (overrides: Partial<Plan> = {}): Plan => ({
-  id: 'plan-1',
+  id: PLAN_ID,
   name: 'Plano Básico',
   description: null,
   price: makeDecimal('99.90'),
   isActive: true,
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
+  createdAt: DATE_2026,
+  updatedAt: DATE_2026,
   ...overrides,
 });
 
@@ -99,10 +108,10 @@ describe('CreateSubscriptionUseCase', () => {
     subscriptionRepository.create.mockResolvedValue(makeSubscription());
 
     const result = await useCase.execute({
-      subscriberId: 'subscriber-1',
-      planId: 'plan-1',
-      status: 'TRIAL',
-      startDate: new Date('2026-01-01'),
+      subscriberId: SUBSCRIBER_ID,
+      planId: PLAN_ID,
+      status: SUBSCRIPTION_STATUS_TRIAL,
+      startDate: DATE_2026,
     });
 
     expect(result.id).toBe('subscription-1');
@@ -117,8 +126,8 @@ describe('CreateSubscriptionUseCase', () => {
     await expect(
       useCase.execute({
         subscriberId: 'x',
-        planId: 'plan-1',
-        status: 'TRIAL',
+        planId: PLAN_ID,
+        status: SUBSCRIPTION_STATUS_TRIAL,
         startDate: new Date(),
       })
     ).rejects.toThrow(NotFoundException);
@@ -130,9 +139,9 @@ describe('CreateSubscriptionUseCase', () => {
 
     await expect(
       useCase.execute({
-        subscriberId: 'subscriber-1',
+        subscriberId: SUBSCRIBER_ID,
         planId: 'x',
-        status: 'TRIAL',
+        status: SUBSCRIPTION_STATUS_TRIAL,
         startDate: new Date(),
       })
     ).rejects.toThrow(NotFoundException);
@@ -145,9 +154,9 @@ describe('CreateSubscriptionUseCase', () => {
 
     await expect(
       useCase.execute({
-        subscriberId: 'subscriber-1',
-        planId: 'plan-1',
-        status: 'TRIAL',
+        subscriberId: SUBSCRIBER_ID,
+        planId: PLAN_ID,
+        status: SUBSCRIPTION_STATUS_TRIAL,
         startDate: new Date(),
       })
     ).rejects.toThrow(ConflictException);

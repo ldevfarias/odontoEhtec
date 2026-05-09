@@ -1,4 +1,4 @@
-import type { Professional, ProfessionalRole } from '../../entities/professional.entity';
+import type { Professional } from '../../entities/professional.entity';
 
 export const PROFESSIONAL_REPOSITORY = Symbol('IProfessionalRepository');
 
@@ -7,14 +7,21 @@ export interface CreateProfessionalData {
   email: string;
   cpf: string;
   phone: string | null;
-  role: ProfessionalRole;
-  clinicId: string;
 }
 
 export interface UpdateProfessionalData {
   name?: string;
   phone?: string | null;
-  role?: ProfessionalRole;
+  status?: 'INVITED' | 'ACTIVE' | 'INACTIVE';
+}
+
+export interface UpsertProfessionalForInviteData {
+  name: string;
+  email: string;
+  cpf: string;
+  phone: string | null;
+  clinicId: string;
+  role: 'DENTIST' | 'RECEPTIONIST' | 'ASSISTANT';
 }
 
 export interface ProfessionalPage {
@@ -30,4 +37,6 @@ export interface IProfessionalRepository {
   findAllByClinic(clinicId: string, page: number, limit: number): Promise<ProfessionalPage>;
   update(id: string, data: UpdateProfessionalData): Promise<Professional>;
   delete(id: string): Promise<void>;
+  upsertForInvite(data: UpsertProfessionalForInviteData): Promise<Professional>;
+  getFirstClinicId(professionalId: string): Promise<string | null>;
 }

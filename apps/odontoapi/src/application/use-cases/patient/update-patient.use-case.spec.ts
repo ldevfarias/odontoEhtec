@@ -12,10 +12,13 @@ const makePatientRepository = (): jest.Mocked<IPatientRepository> => ({
   delete: jest.fn(),
 });
 
+const PATIENT_CPF = '12345678901';
+const PATIENT_NAME_UPDATED = 'Maria Silva';
+
 const makePatient = (overrides: Partial<Patient> = {}): Patient => ({
   id: 'patient-1',
   name: 'Maria',
-  cpf: '12345678901',
+  cpf: PATIENT_CPF,
   birthDate: null,
   phone: null,
   email: null,
@@ -36,14 +39,14 @@ describe('UpdatePatientUseCase', () => {
 
   it('atualiza paciente existente', async () => {
     patientRepository.findById.mockResolvedValue(makePatient());
-    patientRepository.update.mockResolvedValue(makePatient({ name: 'Maria Silva' }));
+    patientRepository.update.mockResolvedValue(makePatient({ name: PATIENT_NAME_UPDATED }));
 
-    const result = await useCase.execute({ id: 'patient-1', name: 'Maria Silva' });
+    const result = await useCase.execute({ id: 'patient-1', name: PATIENT_NAME_UPDATED });
 
-    expect(result.name).toBe('Maria Silva');
+    expect(result.name).toBe(PATIENT_NAME_UPDATED);
     expect(patientRepository.update).toHaveBeenCalledWith(
       'patient-1',
-      expect.objectContaining({ name: 'Maria Silva' })
+      expect.objectContaining({ name: PATIENT_NAME_UPDATED })
     );
   });
 

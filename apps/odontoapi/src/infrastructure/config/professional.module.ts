@@ -5,7 +5,7 @@ import { FIND_PROFESSIONAL_BY_ID_USE_CASE } from '../../domain/ports/in/professi
 import { LIST_PROFESSIONALS_USE_CASE } from '../../domain/ports/in/professional/list-professionals.use-case';
 import { UPDATE_PROFESSIONAL_USE_CASE } from '../../domain/ports/in/professional/update-professional.use-case';
 import { DELETE_PROFESSIONAL_USE_CASE } from '../../domain/ports/in/professional/delete-professional.use-case';
-import { PrismaProfessionalRepository } from '../adapters/out/prisma-professional.repository';
+import { DrizzleProfessionalRepository } from '../adapters/out/drizzle-professional.repository';
 import { CreateProfessionalUseCase } from '../../application/use-cases/professional/create-professional.use-case';
 import { FindProfessionalByIdUseCase } from '../../application/use-cases/professional/find-professional-by-id.use-case';
 import { ListProfessionalsUseCase } from '../../application/use-cases/professional/list-professionals.use-case';
@@ -17,7 +17,7 @@ import { ClinicModule } from './clinic.module';
 @Module({
   imports: [ClinicModule],
   providers: [
-    { provide: PROFESSIONAL_REPOSITORY, useClass: PrismaProfessionalRepository },
+    { provide: PROFESSIONAL_REPOSITORY, useClass: DrizzleProfessionalRepository },
     { provide: CREATE_PROFESSIONAL_USE_CASE, useClass: CreateProfessionalUseCase },
     { provide: FIND_PROFESSIONAL_BY_ID_USE_CASE, useClass: FindProfessionalByIdUseCase },
     { provide: LIST_PROFESSIONALS_USE_CASE, useClass: ListProfessionalsUseCase },

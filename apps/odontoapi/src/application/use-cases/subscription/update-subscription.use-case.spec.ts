@@ -12,15 +12,21 @@ const makeSubscriptionRepository = (): jest.Mocked<ISubscriptionRepository> => (
   delete: jest.fn(),
 });
 
+const SUBSCRIPTION_ID = 'subscription-1';
+const SUBSCRIBER_ID = 'subscriber-1';
+const PLAN_ID = 'plan-1';
+const SUBSCRIPTION_STATUS_TRIAL = 'TRIAL';
+const DATE_2026 = new Date('2026-01-01');
+
 const makeSubscription = (overrides: Partial<Subscription> = {}): Subscription => ({
-  id: 'subscription-1',
-  subscriberId: 'subscriber-1',
-  planId: 'plan-1',
-  status: 'TRIAL',
-  startDate: new Date('2026-01-01'),
+  id: SUBSCRIPTION_ID,
+  subscriberId: SUBSCRIBER_ID,
+  planId: PLAN_ID,
+  status: SUBSCRIPTION_STATUS_TRIAL,
+  startDate: DATE_2026,
   endDate: null,
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
+  createdAt: DATE_2026,
+  updatedAt: DATE_2026,
   ...overrides,
 });
 
@@ -37,11 +43,11 @@ describe('UpdateSubscriptionUseCase', () => {
     subscriptionRepository.findById.mockResolvedValue(makeSubscription());
     subscriptionRepository.update.mockResolvedValue(makeSubscription({ status: 'ACTIVE' }));
 
-    const result = await useCase.execute({ id: 'subscription-1', status: 'ACTIVE' });
+    const result = await useCase.execute({ id: SUBSCRIPTION_ID, status: 'ACTIVE' });
 
     expect(result.status).toBe('ACTIVE');
     expect(subscriptionRepository.update).toHaveBeenCalledWith(
-      'subscription-1',
+      SUBSCRIPTION_ID,
       expect.objectContaining({ status: 'ACTIVE' })
     );
   });

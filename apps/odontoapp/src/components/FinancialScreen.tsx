@@ -4,6 +4,8 @@ import React from 'react';
 import { Card } from './Card';
 import { KPI } from './KPI';
 
+const SOFT_BORDER = '1px solid var(--oet-border-soft)';
+
 export const FinancialScreen: React.FC = () => {
   return (
     <div>
@@ -85,7 +87,7 @@ export const FinancialScreen: React.FC = () => {
                 key={idx}
                 style={{
                   padding: '16px 0',
-                  borderBottom: idx !== 3 ? '1px solid var(--oet-border-soft)' : 'none',
+                  borderBottom: idx !== 3 ? SOFT_BORDER : 'none',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
@@ -199,13 +201,13 @@ export const FinancialScreen: React.FC = () => {
           Insights
         </h3>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          <li style={{ padding: '12px 0', borderBottom: '1px solid var(--oet-border-soft)' }}>
+          <li style={{ padding: '12px 0', borderBottom: SOFT_BORDER }}>
             <p className="oet-body-sm" style={{ marginBottom: '4px' }}>
               💡 Pix é seu método mais popular
             </p>
             <p className="oet-caption">47% das transações usam Pix</p>
           </li>
-          <li style={{ padding: '12px 0', borderBottom: '1px solid var(--oet-border-soft)' }}>
+          <li style={{ padding: '12px 0', borderBottom: SOFT_BORDER }}>
             <p className="oet-body-sm" style={{ marginBottom: '4px' }}>
               ⚠️ 3 cobranças vencidas
             </p>

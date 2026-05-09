@@ -1,4 +1,4 @@
-import type { ProfessionalRole } from '../../../entities/professional.entity';
+import type { ProfessionalStatus } from '../../../entities/professional.entity';
 
 export const LIST_PROFESSIONALS_USE_CASE = Symbol('IListProfessionalsUseCase');
 
@@ -14,8 +14,7 @@ export interface ProfessionalItem {
   email: string;
   cpf: string;
   phone: string | null;
-  role: ProfessionalRole;
-  clinicId: string;
+  status: ProfessionalStatus;
   createdAt: Date;
   updatedAt: Date;
 }

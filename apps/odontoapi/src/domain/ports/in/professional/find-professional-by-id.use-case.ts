@@ -1,4 +1,4 @@
-import type { ProfessionalRole } from '../../../entities/professional.entity';
+import type { ProfessionalStatus } from '../../../entities/professional.entity';
 
 export const FIND_PROFESSIONAL_BY_ID_USE_CASE = Symbol('IFindProfessionalByIdUseCase');
 
@@ -12,8 +12,7 @@ export interface FindProfessionalByIdOutput {
   email: string;
   cpf: string;
   phone: string | null;
-  role: ProfessionalRole;
-  clinicId: string;
+  status: ProfessionalStatus;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -20,7 +20,7 @@ export class CreatePlanUseCase implements ICreatePlanUseCase {
     const plan = await this.planRepository.create({
       name: input.name,
       description: input.description ?? null,
-      price: input.price,
+      price: String(input.price),
       isActive: input.isActive ?? true,
     });
 

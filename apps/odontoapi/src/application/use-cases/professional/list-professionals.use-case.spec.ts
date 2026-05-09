@@ -1,6 +1,6 @@
-import { ListProfessionalsUseCase } from './list-professionals.use-case';
-import type { IProfessionalRepository } from '../../../domain/ports/out/professional.repository';
 import type { Professional } from '../../../domain/entities/professional.entity';
+import type { IProfessionalRepository } from '../../../domain/ports/out/professional.repository';
+import { ListProfessionalsUseCase } from './list-professionals.use-case';
 
 const makeProfessionalRepository = (): jest.Mocked<IProfessionalRepository> => ({
   create: jest.fn(),
@@ -10,6 +10,8 @@ const makeProfessionalRepository = (): jest.Mocked<IProfessionalRepository> => (
   findAllByClinic: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
+  upsertForInvite: jest.fn(),
+  getFirstClinicId: jest.fn(),
 });
 
 const makeProfessional = (overrides: Partial<Professional> = {}): Professional => ({
@@ -18,8 +20,7 @@ const makeProfessional = (overrides: Partial<Professional> = {}): Professional =
   email: 'joao@clinica.com',
   cpf: '12345678901',
   phone: null,
-  role: 'DENTIST',
-  clinicId: 'clinic-1',
+  status: 'ACTIVE',
   createdAt: new Date('2026-01-01'),
   updatedAt: new Date('2026-01-01'),
   ...overrides,

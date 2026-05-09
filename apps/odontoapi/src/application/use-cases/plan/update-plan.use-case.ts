@@ -20,7 +20,7 @@ export class UpdatePlanUseCase implements IUpdatePlanUseCase {
     const updated = await this.planRepository.update(input.id, {
       name: input.name,
       description: input.description,
-      price: input.price,
+      price: input.price !== undefined ? String(input.price) : undefined,
       isActive: input.isActive,
     });
 

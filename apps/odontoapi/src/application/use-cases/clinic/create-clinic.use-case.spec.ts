@@ -1,9 +1,9 @@
 import { ConflictException, NotFoundException } from '@nestjs/common';
-import { CreateClinicUseCase } from './create-clinic.use-case';
-import type { IClinicRepository } from '../../../domain/ports/out/clinic.repository';
-import type { ISubscriberRepository } from '../../../domain/ports/out/subscriber.repository';
 import type { Clinic } from '../../../domain/entities/clinic.entity';
 import type { Subscriber } from '../../../domain/entities/subscriber.entity';
+import type { IClinicRepository } from '../../../domain/ports/out/clinic.repository';
+import type { ISubscriberRepository } from '../../../domain/ports/out/subscriber.repository';
+import { CreateClinicUseCase } from './create-clinic.use-case';
 
 const makeClinicRepository = (): jest.Mocked<IClinicRepository> => ({
   create: jest.fn(),
@@ -22,29 +22,36 @@ const makeSubscriberRepository = (): jest.Mocked<ISubscriberRepository> => ({
   findAll: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
+  countClinics: jest.fn(),
 });
+
+const CLINIC_NAME = 'Clínica Teste';
+const CLINIC_CNPJ = '12345678000199';
+const SUBSCRIBER_ID = 'subscriber-1';
+
+const DATE_2026 = new Date('2026-01-01');
 
 const makeClinic = (overrides: Partial<Clinic> = {}): Clinic => ({
   id: 'clinic-1',
-  name: 'Clínica Teste',
-  cnpj: '12345678000199',
+  name: CLINIC_NAME,
+  cnpj: CLINIC_CNPJ,
   phone: null,
   email: null,
   address: null,
-  subscriberId: 'subscriber-1',
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
+  subscriberId: SUBSCRIBER_ID,
+  createdAt: DATE_2026,
+  updatedAt: DATE_2026,
   ...overrides,
 });
 
 const makeSubscriber = (overrides: Partial<Subscriber> = {}): Subscriber => ({
-  id: 'subscriber-1',
+  id: SUBSCRIBER_ID,
   name: 'João',
   email: 'joao@email.com',
   document: '12345678000',
   phone: null,
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
+  createdAt: DATE_2026,
+  updatedAt: DATE_2026,
   ...overrides,
 });
 
@@ -65,13 +72,13 @@ describe('CreateClinicUseCase', () => {
     clinicRepository.create.mockResolvedValue(makeClinic());
 
     const result = await useCase.execute({
-      name: 'Clínica Teste',
-      cnpj: '12345678000199',
-      subscriberId: 'subscriber-1',
+      name: CLINIC_NAME,
+      cnpj: CLINIC_CNPJ,
+      subscriberId: SUBSCRIBER_ID,
     });
 
     expect(result.id).toBe('clinic-1');
-    expect(result.cnpj).toBe('12345678000199');
+    expect(result.cnpj).toBe(CLINIC_CNPJ);
     expect(clinicRepository.create).toHaveBeenCalledTimes(1);
   });
 
@@ -79,7 +86,7 @@ describe('CreateClinicUseCase', () => {
     subscriberRepository.findById.mockResolvedValue(null);
 
     await expect(
-      useCase.execute({ name: 'Clínica Teste', cnpj: '12345678000199', subscriberId: 'x' })
+      useCase.execute({ name: CLINIC_NAME, cnpj: CLINIC_CNPJ, subscriberId: 'x' })
     ).rejects.toThrow(NotFoundException);
   });
 
@@ -90,8 +97,8 @@ describe('CreateClinicUseCase', () => {
     await expect(
       useCase.execute({
         name: 'Outra Clínica',
-        cnpj: '12345678000199',
-        subscriberId: 'subscriber-1',
+        cnpj: CLINIC_CNPJ,
+        subscriberId: SUBSCRIBER_ID,
       })
     ).rejects.toThrow(ConflictException);
   });

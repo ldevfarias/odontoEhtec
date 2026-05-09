@@ -1,4 +1,4 @@
-import type { ProfessionalRole } from '../../../entities/professional.entity';
+import type { ProfessionalStatus } from '../../../entities/professional.entity';
 
 export const UPDATE_PROFESSIONAL_USE_CASE = Symbol('IUpdateProfessionalUseCase');
 
@@ -6,7 +6,6 @@ export interface UpdateProfessionalInput {
   id: string;
   name?: string;
   phone?: string | null;
-  role?: ProfessionalRole;
 }
 
 export interface UpdateProfessionalOutput {
@@ -15,8 +14,7 @@ export interface UpdateProfessionalOutput {
   email: string;
   cpf: string;
   phone: string | null;
-  role: ProfessionalRole;
-  clinicId: string;
+  status: ProfessionalStatus;
   createdAt: Date;
   updatedAt: Date;
 }

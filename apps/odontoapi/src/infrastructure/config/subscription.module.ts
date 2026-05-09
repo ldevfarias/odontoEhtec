@@ -5,7 +5,7 @@ import { FIND_SUBSCRIPTION_BY_ID_USE_CASE } from '../../domain/ports/in/subscrip
 import { LIST_SUBSCRIPTIONS_USE_CASE } from '../../domain/ports/in/subscription/list-subscriptions.use-case';
 import { UPDATE_SUBSCRIPTION_USE_CASE } from '../../domain/ports/in/subscription/update-subscription.use-case';
 import { DELETE_SUBSCRIPTION_USE_CASE } from '../../domain/ports/in/subscription/delete-subscription.use-case';
-import { PrismaSubscriptionRepository } from '../adapters/out/prisma-subscription.repository';
+import { DrizzleSubscriptionRepository } from '../adapters/out/drizzle-subscription.repository';
 import { CreateSubscriptionUseCase } from '../../application/use-cases/subscription/create-subscription.use-case';
 import { FindSubscriptionByIdUseCase } from '../../application/use-cases/subscription/find-subscription-by-id.use-case';
 import { ListSubscriptionsUseCase } from '../../application/use-cases/subscription/list-subscriptions.use-case';
@@ -18,7 +18,7 @@ import { PlanModule } from './plan.module';
 @Module({
   imports: [SubscriberModule, PlanModule],
   providers: [
-    { provide: SUBSCRIPTION_REPOSITORY, useClass: PrismaSubscriptionRepository },
+    { provide: SUBSCRIPTION_REPOSITORY, useClass: DrizzleSubscriptionRepository },
     { provide: CREATE_SUBSCRIPTION_USE_CASE, useClass: CreateSubscriptionUseCase },
     { provide: FIND_SUBSCRIPTION_BY_ID_USE_CASE, useClass: FindSubscriptionByIdUseCase },
     { provide: LIST_SUBSCRIPTIONS_USE_CASE, useClass: ListSubscriptionsUseCase },

@@ -5,7 +5,7 @@ import { FIND_PLAN_BY_ID_USE_CASE } from '../../domain/ports/in/plan/find-plan-b
 import { LIST_PLANS_USE_CASE } from '../../domain/ports/in/plan/list-plans.use-case';
 import { UPDATE_PLAN_USE_CASE } from '../../domain/ports/in/plan/update-plan.use-case';
 import { DELETE_PLAN_USE_CASE } from '../../domain/ports/in/plan/delete-plan.use-case';
-import { PrismaPlanRepository } from '../adapters/out/prisma-plan.repository';
+import { DrizzlePlanRepository } from '../adapters/out/drizzle-plan.repository';
 import { CreatePlanUseCase } from '../../application/use-cases/plan/create-plan.use-case';
 import { FindPlanByIdUseCase } from '../../application/use-cases/plan/find-plan-by-id.use-case';
 import { ListPlansUseCase } from '../../application/use-cases/plan/list-plans.use-case';
@@ -15,7 +15,7 @@ import { PlanController } from '../adapters/in/plan/plan.controller';
 
 @Module({
   providers: [
-    { provide: PLAN_REPOSITORY, useClass: PrismaPlanRepository },
+    { provide: PLAN_REPOSITORY, useClass: DrizzlePlanRepository },
     { provide: CREATE_PLAN_USE_CASE, useClass: CreatePlanUseCase },
     { provide: FIND_PLAN_BY_ID_USE_CASE, useClass: FindPlanByIdUseCase },
     { provide: LIST_PLANS_USE_CASE, useClass: ListPlansUseCase },

@@ -1,31 +1,22 @@
-import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import type {
-  ICreateProfessionalUseCase,
   CreateProfessionalInput,
   CreateProfessionalOutput,
+  ICreateProfessionalUseCase,
 } from '../../../domain/ports/in/professional/create-professional.use-case';
 import {
   PROFESSIONAL_REPOSITORY,
   type IProfessionalRepository,
 } from '../../../domain/ports/out/professional.repository';
-import {
-  CLINIC_REPOSITORY,
-  type IClinicRepository,
-} from '../../../domain/ports/out/clinic.repository';
 
 @Injectable()
 export class CreateProfessionalUseCase implements ICreateProfessionalUseCase {
   constructor(
     @Inject(PROFESSIONAL_REPOSITORY)
-    private readonly professionalRepository: IProfessionalRepository,
-    @Inject(CLINIC_REPOSITORY)
-    private readonly clinicRepository: IClinicRepository
+    private readonly professionalRepository: IProfessionalRepository
   ) {}
 
   async execute(input: CreateProfessionalInput): Promise<CreateProfessionalOutput> {
-    const clinic = await this.clinicRepository.findById(input.clinicId);
-    if (!clinic) throw new NotFoundException('Clínica não encontrada');
-
     const [byEmail, byCpf] = await Promise.all([
       this.professionalRepository.findByEmail(input.email),
       this.professionalRepository.findByCpf(input.cpf),
@@ -39,8 +30,6 @@ export class CreateProfessionalUseCase implements ICreateProfessionalUseCase {
       email: input.email,
       cpf: input.cpf,
       phone: input.phone ?? null,
-      role: input.role,
-      clinicId: input.clinicId,
     });
 
     return {
@@ -49,8 +38,7 @@ export class CreateProfessionalUseCase implements ICreateProfessionalUseCase {
       email: professional.email,
       cpf: professional.cpf,
       phone: professional.phone,
-      role: professional.role,
-      clinicId: professional.clinicId,
+      status: professional.status,
       createdAt: professional.createdAt,
       updatedAt: professional.updatedAt,
     };
