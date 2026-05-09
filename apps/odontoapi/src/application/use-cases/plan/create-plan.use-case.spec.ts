@@ -18,9 +18,11 @@ const makePlanRepository = (): jest.Mocked<IPlanRepository> => ({
   delete: jest.fn(),
 });
 
+const PLAN_NAME = 'Plano Básico';
+
 const makePlan = (overrides: Partial<Plan> = {}): Plan => ({
   id: 'plan-1',
-  name: 'Plano Básico',
+  name: PLAN_NAME,
   description: null,
   price: makeDecimal('99.90'),
   isActive: true,
@@ -42,7 +44,7 @@ describe('CreatePlanUseCase', () => {
     planRepository.findByName.mockResolvedValue(null);
     planRepository.create.mockResolvedValue(makePlan());
 
-    const result = await useCase.execute({ name: 'Plano Básico', price: 99.9 });
+    const result = await useCase.execute({ name: PLAN_NAME, price: 99.9 });
 
     expect(result.id).toBe('plan-1');
     expect(result.price).toBe(99.9);
@@ -53,7 +55,7 @@ describe('CreatePlanUseCase', () => {
   it('lança ConflictException quando nome já cadastrado', async () => {
     planRepository.findByName.mockResolvedValue(makePlan());
 
-    await expect(useCase.execute({ name: 'Plano Básico', price: 99.9 })).rejects.toThrow(
+    await expect(useCase.execute({ name: PLAN_NAME, price: 99.9 })).rejects.toThrow(
       ConflictException
     );
   });

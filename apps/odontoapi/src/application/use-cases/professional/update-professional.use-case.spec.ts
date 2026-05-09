@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
-import { UpdateProfessionalUseCase } from './update-professional.use-case';
-import type { IProfessionalRepository } from '../../../domain/ports/out/professional.repository';
 import type { Professional } from '../../../domain/entities/professional.entity';
+import type { IProfessionalRepository } from '../../../domain/ports/out/professional.repository';
+import { UpdateProfessionalUseCase } from './update-professional.use-case';
 
 const makeProfessionalRepository = (): jest.Mocked<IProfessionalRepository> => ({
   create: jest.fn(),
@@ -11,16 +11,22 @@ const makeProfessionalRepository = (): jest.Mocked<IProfessionalRepository> => (
   findAllByClinic: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
+  upsertForInvite: jest.fn(),
+  getFirstClinicId: jest.fn(),
 });
 
+const PROFESSIONAL_EMAIL = 'joao@clinica.com';
+const PROFESSIONAL_NAME_UPDATED = 'Dr. João Silva';
+
+const PROFESSIONAL_ID = 'professional-1';
+
 const makeProfessional = (overrides: Partial<Professional> = {}): Professional => ({
-  id: 'professional-1',
+  id: PROFESSIONAL_ID,
   name: 'Dr. João',
-  email: 'joao@clinica.com',
+  email: PROFESSIONAL_EMAIL,
   cpf: '12345678901',
   phone: null,
-  role: 'DENTIST',
-  clinicId: 'clinic-1',
+  status: 'ACTIVE',
   createdAt: new Date('2026-01-01'),
   updatedAt: new Date('2026-01-01'),
   ...overrides,
@@ -37,21 +43,17 @@ describe('UpdateProfessionalUseCase', () => {
 
   it('atualiza profissional existente', async () => {
     professionalRepository.findById.mockResolvedValue(makeProfessional());
-    professionalRepository.update.mockResolvedValue(
-      makeProfessional({ name: 'Dr. João Silva', role: 'ADMIN' })
-    );
+    professionalRepository.update.mockResolvedValue(makeProfessional({ name: PROFESSIONAL_NAME_UPDATED }));
 
     const result = await useCase.execute({
-      id: 'professional-1',
-      name: 'Dr. João Silva',
-      role: 'ADMIN',
+      id: PROFESSIONAL_ID,
+      name: PROFESSIONAL_NAME_UPDATED,
     });
 
-    expect(result.name).toBe('Dr. João Silva');
-    expect(result.role).toBe('ADMIN');
+    expect(result.name).toBe(PROFESSIONAL_NAME_UPDATED);
     expect(professionalRepository.update).toHaveBeenCalledWith(
-      'professional-1',
-      expect.objectContaining({ name: 'Dr. João Silva', role: 'ADMIN' })
+      PROFESSIONAL_ID,
+      expect.objectContaining({ name: PROFESSIONAL_NAME_UPDATED })
     );
   });
 

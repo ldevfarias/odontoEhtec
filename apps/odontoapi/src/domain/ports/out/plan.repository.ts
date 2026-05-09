@@ -5,14 +5,14 @@ export const PLAN_REPOSITORY = Symbol('IPlanRepository');
 export interface CreatePlanData {
   name: string;
   description: string | null;
-  price: number;
+  price: string;
   isActive: boolean;
 }
 
 export interface UpdatePlanData {
   name?: string;
   description?: string | null;
-  price?: number;
+  price?: string;
   isActive?: boolean;
 }
 

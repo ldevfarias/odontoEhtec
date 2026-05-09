@@ -27,4 +27,5 @@ export interface ISubscriberRepository {
   findAll(page: number, limit: number): Promise<SubscriberPage>;
   update(id: string, data: UpdateSubscriberData): Promise<Subscriber>;
   delete(id: string): Promise<void>;
+  countClinics(subscriberId: string): Promise<number>;
 }

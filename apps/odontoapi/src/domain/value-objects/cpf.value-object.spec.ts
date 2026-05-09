@@ -1,30 +1,33 @@
 import { Cpf } from './cpf.value-object';
 
+const VALID_CPF = '52998224725';
+const INVALID_CPF = 'CPF inválido';
+
 describe('Cpf', () => {
   it('cria CPF válido removendo formatação', () => {
     const cpf = Cpf.create('529.982.247-25');
-    expect(cpf.toString()).toBe('52998224725');
+    expect(cpf.toString()).toBe(VALID_CPF);
   });
 
   it('retorna CPF formatado', () => {
-    const cpf = Cpf.create('52998224725');
+    const cpf = Cpf.create(VALID_CPF);
     expect(cpf.formatted()).toBe('529.982.247-25');
   });
 
   it('lança erro para CPF com todos os dígitos iguais', () => {
-    expect(() => Cpf.create('111.111.111-11')).toThrow('CPF inválido');
+    expect(() => Cpf.create('111.111.111-11')).toThrow(INVALID_CPF);
   });
 
   it('lança erro para CPF com dígito verificador incorreto', () => {
-    expect(() => Cpf.create('529.982.247-26')).toThrow('CPF inválido');
+    expect(() => Cpf.create('529.982.247-26')).toThrow(INVALID_CPF);
   });
 
   it('lança erro para CPF com menos de 11 dígitos', () => {
-    expect(() => Cpf.create('1234567')).toThrow('CPF inválido');
+    expect(() => Cpf.create('1234567')).toThrow(INVALID_CPF);
   });
 
   it('retorna true para CPF válido via isValid', () => {
-    expect(Cpf.isValid('52998224725')).toBe(true);
+    expect(Cpf.isValid(VALID_CPF)).toBe(true);
   });
 
   it('retorna false para CPF inválido via isValid', () => {

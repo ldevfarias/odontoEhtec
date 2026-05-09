@@ -144,7 +144,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onSubmit, isMobile = f
 
       {/* Right Panel — Form */}
       <div className="flex-1 flex flex-col justify-center items-center px-12 py-16">
-        <div className="w-full max-w-[400px]">
+        <div className="w-full max-w-100">
           <h2 className="oet-h1 mb-2">Bem-vindo</h2>
           <p className="oet-body text-ink-2 mb-10">
             Entre com suas credenciais para acessar seu painel

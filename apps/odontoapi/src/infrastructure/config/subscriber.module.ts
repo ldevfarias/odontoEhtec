@@ -5,7 +5,7 @@ import { FIND_SUBSCRIBER_BY_ID_USE_CASE } from '../../domain/ports/in/subscriber
 import { LIST_SUBSCRIBERS_USE_CASE } from '../../domain/ports/in/subscriber/list-subscribers.use-case';
 import { UPDATE_SUBSCRIBER_USE_CASE } from '../../domain/ports/in/subscriber/update-subscriber.use-case';
 import { DELETE_SUBSCRIBER_USE_CASE } from '../../domain/ports/in/subscriber/delete-subscriber.use-case';
-import { PrismaSubscriberRepository } from '../adapters/out/prisma-subscriber.repository';
+import { DrizzleSubscriberRepository } from '../adapters/out/drizzle-subscriber.repository';
 import { CreateSubscriberUseCase } from '../../application/use-cases/subscriber/create-subscriber.use-case';
 import { FindSubscriberByIdUseCase } from '../../application/use-cases/subscriber/find-subscriber-by-id.use-case';
 import { ListSubscribersUseCase } from '../../application/use-cases/subscriber/list-subscribers.use-case';
@@ -15,7 +15,7 @@ import { SubscriberController } from '../adapters/in/subscriber/subscriber.contr
 
 @Module({
   providers: [
-    { provide: SUBSCRIBER_REPOSITORY, useClass: PrismaSubscriberRepository },
+    { provide: SUBSCRIBER_REPOSITORY, useClass: DrizzleSubscriberRepository },
     { provide: CREATE_SUBSCRIBER_USE_CASE, useClass: CreateSubscriberUseCase },
     { provide: FIND_SUBSCRIBER_BY_ID_USE_CASE, useClass: FindSubscriberByIdUseCase },
     { provide: LIST_SUBSCRIBERS_USE_CASE, useClass: ListSubscribersUseCase },

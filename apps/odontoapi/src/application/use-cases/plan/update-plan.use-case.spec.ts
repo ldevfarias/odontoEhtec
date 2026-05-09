@@ -18,6 +18,8 @@ const makePlanRepository = (): jest.Mocked<IPlanRepository> => ({
   delete: jest.fn(),
 });
 
+const PLAN_PREMIUM = 'Plano Premium';
+
 const makePlan = (overrides: Partial<Plan> = {}): Plan => ({
   id: 'plan-1',
   name: 'Plano Básico',
@@ -41,12 +43,12 @@ describe('UpdatePlanUseCase', () => {
   it('atualiza plano existente', async () => {
     planRepository.findById.mockResolvedValue(makePlan());
     planRepository.update.mockResolvedValue(
-      makePlan({ name: 'Plano Premium', price: makeDecimal('199.90') })
+      makePlan({ name: PLAN_PREMIUM, price: makeDecimal('199.90') })
     );
 
-    const result = await useCase.execute({ id: 'plan-1', name: 'Plano Premium', price: 199.9 });
+    const result = await useCase.execute({ id: 'plan-1', name: PLAN_PREMIUM, price: 199.9 });
 
-    expect(result.name).toBe('Plano Premium');
+    expect(result.name).toBe(PLAN_PREMIUM);
     expect(result.price).toBe(199.9);
   });
 

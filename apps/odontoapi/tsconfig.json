@@ -7,11 +7,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "incremental": true,
     "tsBuildInfoFile": "dist/.tsbuildinfo",
     "paths": {}
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "drizzle/**/*.ts", "drizzle.config.ts"],
   "exclude": ["node_modules", "dist"]
 }

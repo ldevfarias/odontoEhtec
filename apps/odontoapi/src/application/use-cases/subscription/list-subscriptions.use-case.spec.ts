@@ -11,15 +11,20 @@ const makeSubscriptionRepository = (): jest.Mocked<ISubscriptionRepository> => (
   delete: jest.fn(),
 });
 
+const SUBSCRIBER_ID = 'subscriber-1';
+const PLAN_ID = 'plan-1';
+const SUBSCRIPTION_STATUS_TRIAL = 'TRIAL';
+const DATE_2026 = DATE_2026;
+
 const makeSubscription = (overrides: Partial<Subscription> = {}): Subscription => ({
   id: 'subscription-1',
-  subscriberId: 'subscriber-1',
-  planId: 'plan-1',
-  status: 'TRIAL',
-  startDate: new Date('2026-01-01'),
+  subscriberId: SUBSCRIBER_ID,
+  planId: PLAN_ID,
+  status: SUBSCRIPTION_STATUS_TRIAL,
+  startDate: DATE_2026,
   endDate: null,
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
+  createdAt: DATE_2026,
+  updatedAt: DATE_2026,
   ...overrides,
 });
 
@@ -39,18 +44,18 @@ describe('ListSubscriptionsUseCase', () => {
       total: 2,
     });
 
-    const result = await useCase.execute({ subscriberId: 'subscriber-1', page: 1, limit: 10 });
+    const result = await useCase.execute({ subscriberId: SUBSCRIBER_ID, page: 1, limit: 10 });
 
     expect(result.items).toHaveLength(2);
     expect(result.total).toBe(2);
     expect(result.totalPages).toBe(1);
-    expect(subscriptionRepository.findAllBySubscriber).toHaveBeenCalledWith('subscriber-1', 1, 10);
+    expect(subscriptionRepository.findAllBySubscriber).toHaveBeenCalledWith(SUBSCRIBER_ID, 1, 10);
   });
 
   it('retorna lista vazia quando não há assinaturas', async () => {
     subscriptionRepository.findAllBySubscriber.mockResolvedValue({ items: [], total: 0 });
 
-    const result = await useCase.execute({ subscriberId: 'subscriber-1', page: 1, limit: 10 });
+    const result = await useCase.execute({ subscriberId: SUBSCRIBER_ID, page: 1, limit: 10 });
 
     expect(result.items).toHaveLength(0);
     expect(result.totalPages).toBe(0);

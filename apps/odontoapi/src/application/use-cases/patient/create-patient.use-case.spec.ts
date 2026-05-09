@@ -23,16 +23,20 @@ const makeClinicRepository = (): jest.Mocked<IClinicRepository> => ({
   delete: jest.fn(),
 });
 
+const PATIENT_CPF = '12345678901';
+const CLINIC_ID = 'clinic-1';
+const DATE_2026 = DATE_2026;
+
 const makePatient = (overrides: Partial<Patient> = {}): Patient => ({
   id: 'patient-1',
   name: 'Maria',
-  cpf: '12345678901',
+  cpf: PATIENT_CPF,
   birthDate: null,
   phone: null,
   email: null,
-  clinicId: 'clinic-1',
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
+  clinicId: CLINIC_ID,
+  createdAt: DATE_2026,
+  updatedAt: DATE_2026,
   ...overrides,
 });
 
@@ -44,8 +48,8 @@ const makeClinic = (overrides: Partial<Clinic> = {}): Clinic => ({
   email: null,
   address: null,
   subscriberId: 'subscriber-1',
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
+  createdAt: DATE_2026,
+  updatedAt: DATE_2026,
   ...overrides,
 });
 
@@ -67,12 +71,12 @@ describe('CreatePatientUseCase', () => {
 
     const result = await useCase.execute({
       name: 'Maria',
-      cpf: '12345678901',
-      clinicId: 'clinic-1',
+      cpf: PATIENT_CPF,
+      clinicId: CLINIC_ID,
     });
 
     expect(result.id).toBe('patient-1');
-    expect(result.cpf).toBe('12345678901');
+    expect(result.cpf).toBe(PATIENT_CPF);
     expect(patientRepository.create).toHaveBeenCalledTimes(1);
   });
 
@@ -80,7 +84,7 @@ describe('CreatePatientUseCase', () => {
     clinicRepository.findById.mockResolvedValue(null);
 
     await expect(
-      useCase.execute({ name: 'Maria', cpf: '12345678901', clinicId: 'inexistente' })
+      useCase.execute({ name: 'Maria', cpf: PATIENT_CPF, clinicId: 'inexistente' })
     ).rejects.toThrow(NotFoundException);
   });
 
@@ -89,7 +93,7 @@ describe('CreatePatientUseCase', () => {
     patientRepository.findByCpfAndClinic.mockResolvedValue(makePatient());
 
     await expect(
-      useCase.execute({ name: 'Outro', cpf: '12345678901', clinicId: 'clinic-1' })
+      useCase.execute({ name: 'Outro', cpf: PATIENT_CPF, clinicId: CLINIC_ID })
     ).rejects.toThrow(ConflictException);
   });
 });

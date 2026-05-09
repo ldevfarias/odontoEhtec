@@ -12,10 +12,13 @@ const makeClinicRepository = (): jest.Mocked<IClinicRepository> => ({
   delete: jest.fn(),
 });
 
+const CLINIC_CNPJ = '12345678000199';
+const CLINIC_NAME_UPDATED = 'Nova Clínica';
+
 const makeClinic = (overrides: Partial<Clinic> = {}): Clinic => ({
   id: 'clinic-1',
   name: 'Clínica Teste',
-  cnpj: '12345678000199',
+  cnpj: CLINIC_CNPJ,
   phone: null,
   email: null,
   address: null,
@@ -36,14 +39,14 @@ describe('UpdateClinicUseCase', () => {
 
   it('atualiza clínica existente', async () => {
     clinicRepository.findById.mockResolvedValue(makeClinic());
-    clinicRepository.update.mockResolvedValue(makeClinic({ name: 'Nova Clínica' }));
+    clinicRepository.update.mockResolvedValue(makeClinic({ name: CLINIC_NAME_UPDATED }));
 
-    const result = await useCase.execute({ id: 'clinic-1', name: 'Nova Clínica' });
+    const result = await useCase.execute({ id: 'clinic-1', name: CLINIC_NAME_UPDATED });
 
-    expect(result.name).toBe('Nova Clínica');
+    expect(result.name).toBe(CLINIC_NAME_UPDATED);
     expect(clinicRepository.update).toHaveBeenCalledWith(
       'clinic-1',
-      expect.objectContaining({ name: 'Nova Clínica' })
+      expect.objectContaining({ name: CLINIC_NAME_UPDATED })
     );
   });
 

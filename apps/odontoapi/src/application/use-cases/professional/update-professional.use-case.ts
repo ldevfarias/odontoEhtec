@@ -23,7 +23,6 @@ export class UpdateProfessionalUseCase implements IUpdateProfessionalUseCase {
     const updated = await this.professionalRepository.update(input.id, {
       name: input.name,
       phone: input.phone,
-      role: input.role,
     });
 
     return {
@@ -32,8 +31,7 @@ export class UpdateProfessionalUseCase implements IUpdateProfessionalUseCase {
       email: updated.email,
       cpf: updated.cpf,
       phone: updated.phone,
-      role: updated.role,
-      clinicId: updated.clinicId,
+      status: updated.status,
       createdAt: updated.createdAt,
       updatedAt: updated.updatedAt,
     };

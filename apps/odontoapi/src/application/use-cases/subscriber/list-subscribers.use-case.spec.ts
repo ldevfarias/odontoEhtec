@@ -9,6 +9,7 @@ const makeRepository = (): jest.Mocked<ISubscriberRepository> => ({
   findAll: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
+  countClinics: jest.fn(),
 });
 
 describe('ListSubscribersUseCase', () => {
