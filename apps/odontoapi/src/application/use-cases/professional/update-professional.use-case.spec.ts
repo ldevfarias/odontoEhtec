@@ -43,7 +43,9 @@ describe('UpdateProfessionalUseCase', () => {
 
   it('atualiza profissional existente', async () => {
     professionalRepository.findById.mockResolvedValue(makeProfessional());
-    professionalRepository.update.mockResolvedValue(makeProfessional({ name: PROFESSIONAL_NAME_UPDATED }));
+    professionalRepository.update.mockResolvedValue(
+      makeProfessional({ name: PROFESSIONAL_NAME_UPDATED })
+    );
 
     const result = await useCase.execute({
       id: PROFESSIONAL_ID,
