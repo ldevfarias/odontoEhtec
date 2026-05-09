@@ -21,7 +21,7 @@ const makeCredentialRepo = (): jest.Mocked<IUserCredentialRepository> => ({
 const VERIFY_EMAIL = 'joao@email.com';
 const SUBSCRIBER_ID = 'subscriber-1';
 const PASSWORD_HASH = '$2b$12$hash';
-const DATE_2026 = DATE_2026;
+const DATE_2026 = new Date('2026-01-01');
 
 const makeCredential = (overrides: Partial<UserCredential> = {}): UserCredential => ({
   id: 'cred-1',

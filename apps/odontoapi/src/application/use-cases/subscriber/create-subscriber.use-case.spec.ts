@@ -16,7 +16,7 @@ const makeRepository = (): jest.Mocked<ISubscriberRepository> => ({
 
 const SUBSCRIBER_EMAIL = 'contato@clinica.com';
 const SUBSCRIBER_DOCUMENT = '11222333000181';
-const CLINIC_DENTAL = CLINIC_DENTAL;
+const CLINIC_DENTAL = 'Clínica Dental';
 
 describe('CreateSubscriberUseCase', () => {
   let useCase: CreateSubscriberUseCase;

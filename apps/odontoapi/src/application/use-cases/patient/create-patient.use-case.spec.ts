@@ -25,7 +25,7 @@ const makeClinicRepository = (): jest.Mocked<IClinicRepository> => ({
 
 const PATIENT_CPF = '12345678901';
 const CLINIC_ID = 'clinic-1';
-const DATE_2026 = DATE_2026;
+const DATE_2026 = new Date('2026-01-01');
 
 const makePatient = (overrides: Partial<Patient> = {}): Patient => ({
   id: 'patient-1',

@@ -45,7 +45,7 @@ const makePlanRepository = (): jest.Mocked<IPlanRepository> => ({
 const PLAN_ID = 'plan-1';
 
 const SUBSCRIPTION_STATUS_TRIAL = 'TRIAL';
-const DATE_2026 = DATE_2026;
+const DATE_2026 = new Date('2026-01-01');
 
 const makeSubscription = (overrides: Partial<Subscription> = {}): Subscription => ({
   id: 'subscription-1',

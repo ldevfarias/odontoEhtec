@@ -34,7 +34,7 @@ const makeVerificationTokenRepo = (): jest.Mocked<IEmailVerificationTokenReposit
 const REGISTER_EMAIL = 'joao@email.com';
 const REGISTER_DOCUMENT = '12345678901';
 const SUBSCRIBER_ID = 'subscriber-1';
-const DATE_2026 = DATE_2026;
+const DATE_2026 = new Date('2026-01-01');
 
 const makeSubscriber = (): Subscriber => ({
   id: SUBSCRIBER_ID,
